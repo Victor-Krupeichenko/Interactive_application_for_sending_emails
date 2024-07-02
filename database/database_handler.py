@@ -29,6 +29,7 @@ class DatabaseHandler:
     def data_handling_decorator(func):
         """
         Декоратор для обработки исключений во время работы с базой данных.
+        :param func: Функция для обработки.
         """
 
         def wrapper(*args, **kwargs):
@@ -55,9 +56,11 @@ class DatabaseHandler:
                 return user.email
             return None
 
+    @data_handling_decorator
     def set_data(self, *args):
         """
         Добавляет новую запись в базу данных.
+        :param args: Кортеж с данными нового пользователя.
         """
         with self.session() as current_session:
             new_user = User(*args)
