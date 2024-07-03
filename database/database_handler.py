@@ -57,12 +57,12 @@ class DatabaseHandler:
             return None
 
     @data_handling_decorator
-    def set_data(self, *args):
+    def set_data(self, **kwargs):
         """
         Добавляет новую запись в базу данных.
-        :param args: Кортеж с данными нового пользователя.
+        :param kwargs: Словарь с данными пользователя.
         """
         with self.session() as current_session:
-            new_user = User(*args)
+            new_user = User(**kwargs)
             current_session.add(new_user)
             current_session.commit()
