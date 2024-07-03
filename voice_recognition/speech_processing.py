@@ -32,13 +32,14 @@ class SpeechRecognition:
                 self.text_to_speech.talk(text)
                 try:
                     audio = self.r.listen(source)
-                    recognized_text = self.r.recognize_google(audio, self.language)
+                    recognized_text = self.r.recognize_google(audio, language=self.language)
                     if not recognized_text:
                         continue
-                except sr.UnknownValueError:
-                    self.text_to_speech.talk('Не могу распознать речь')
-                    continue
                 except sr.RequestError:
                     self.text_to_speech.talk('Ошибка: при отправки запроса на распознания речи')
+                    continue
+                except Exception as exc:
+                    print(f'Ошибка: {exc}')
+                    self.text_to_speech.talk(f'Произошла непредвиденная ошибка')
                     continue
                 return recognized_text
