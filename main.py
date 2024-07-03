@@ -64,6 +64,7 @@ class ProgramRunner:
         for attribute in attributes:
             dict_user_data[attribute] = input(f'Введите {attribute} пользователя:   ')
         self.database_handler.set_data(**dict_user_data)
+        self.text_to_speech.talk('Пользователь успешно добавлен в базу данных')
 
     def action_send_email(self):
         """
